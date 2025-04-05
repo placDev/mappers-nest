@@ -1,6 +1,6 @@
 {
   "name": "@mappers/nest",
-  "version": "0.0.18",
+  "version": "1.0.0",
   "description": "A versatile and powerful tool that allows you to organize convenient mapping between the layers of your application",
   "license": "MIT",
   "main": "dist/index.js",
@@ -10,14 +10,18 @@
     "url": "https://github.com/placDev/mappers-nest.git"
   },
   "scripts": {
-    "build": "nest build"
+    "copy-readme": "cp ./../README.md ./README.md",
+    "build": "nest build && npm run copy-readme",
+    "test-build": "tsc && npm pack",
+    "publish": "npm publish --access public"
   },
   "dependencies": {
-    "@mappers/core": "^0.0.15"
+    "@mappers/core": ">=1.0.0"
   },
   "peerDependencies": {
     "@nestjs/common": ">=10.0.0",
-    "@nestjs/core": ">=10.0.0"
+    "@nestjs/core": ">=10.0.0",
+    "class-validator": ">=0.13.0"
   },
   "devDependencies": {
     "@nestjs/platform-express": ">=10.0.0",
@@ -43,7 +47,8 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "class-validator": ">=0.13.0"
   },
   "jest": {
     "moduleFileExtensions": [

@@ -8,13 +8,14 @@ import { MapperInterface, MapperSettings } from '@mappers/core';
 import { CollectType } from '@mappers/core/dist/settings/enums/collect-type.enum';
 import { MapperSettingsNest } from './types/mappers.types';
 import { SettingsError } from '@mappers/core/dist/errors/settings/settings.error';
+import { ClassMapperValidator } from './validators/class-mapper.validator';
 
 @Module({})
 export class MappersModule implements OnApplicationBootstrap {
   constructor() {
     if (!MappersModule.startFromForRoot) {
       throw new SettingsError(
-        'Модуль MappersModule должен быть создан через .forRoot()',
+        'The MappersModule must be created via .forRoot()',
       );
     }
   }
@@ -26,7 +27,9 @@ export class MappersModule implements OnApplicationBootstrap {
 
     MapperSettings.setSettings({
       collectType: CollectType.DI,
-      ...settings,
+      defaultValidator: settings?.defaultValidator
+        ? settings.defaultValidator
+        : ClassMapperValidator,
     });
 
     const mapperProvider = this.createMapperProvider();
